@@ -1,35 +1,3 @@
-# udi-poly-lutron-casetapro
-
-Lutron Caseta Pro NodeServer for Polyglot
-
-- Polyglot V2 (On-premise installation).
-- Testing Platform
-    - ISY FW 5.3
-    - Polisy Polyglot 2.2.9
-    - Lutron Caseta Pro bridge
-
-To get started with an on-premise installation: 
-- NodeServer is availble in the Polyglot Store
-
-[Caseta Pro Information](https://www.casetawireless.com/proproducts)
-
-
-### Currently Supported Components
-- Dimmer
-- Switch
-- Pico Remotes
-    - 2 Button
-    - 2 Button Raise/Lower
-    - 3 Button
-    - 3 Button Raise/Lower
-    - 4 Button
-
-### In-Development Components
-- Shades
-    - Pending demand
-
-## Notes
-
 # Configuring this node server
 
 Enter the IP Address for your Caseta Pro bridge.  If
