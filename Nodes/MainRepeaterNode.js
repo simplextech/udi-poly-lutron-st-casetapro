@@ -82,7 +82,7 @@ module.exports = function(Polyglot) {
         logger.info('Password: ' + _password);
   
         try {
-          casetapro.connect(_host, _username, _password);
+          casetapro.connect(_host, 'lutron', 'integration');
           this.getDevices();
           repeaterConnected = true;
         } catch (err) {
