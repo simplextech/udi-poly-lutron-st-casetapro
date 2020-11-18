@@ -1,5 +1,5 @@
 {
-  "name": "CasetaPro",
+  "name": "Simplex-CasetaPro",
   "docs": "https://github.com/simplextech/udi-poly-lutron-casetapro",
   "type": "node",
   "executable": "nodeserver.js",
@@ -14,7 +14,7 @@
       "title": "Lutron Caseta Pro",
       "author": "Simplex Technology",
       "version": "0.1.1",
-      "date": "September 25th, 2020",
+      "date": "November 18th, 2020",
       "source": "https://github.com/simplextech/udi-poly-lutron-casetapro",
       "license": "MIT"
     }
