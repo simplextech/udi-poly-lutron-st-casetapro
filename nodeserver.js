@@ -3,7 +3,7 @@
 trapUncaughtExceptions();
 
 const fs = require('fs');
-const markdown = require('markdown').markdown; // For Polyglot-V2 only
+const markdown = require('markdown').markdown;
 const AsyncLock = require('async-lock');
 const Polyglot = require('polyinterface');
 const logger = Polyglot.logger;
@@ -93,19 +93,13 @@ poly.on('poll', function(longPoll) {
 
 poly.on('stop', async function() {
   logger.info('Graceful stop');
-
-  // Make a last short poll and long poll
   await doPoll(false);
   await doPoll(true);
-
-  // Tell Interface we are stopping (Our polling is now finished)
   poly.stop();
 });
 
 poly.on('delete', function() {
   logger.info('Nodeserver is being deleted');
-
-  // We can do some cleanup, then stop.
   poly.stop();
 });
 
@@ -113,7 +107,6 @@ poly.on('mqttEnd', function() {
   logger.info('MQTT connection ended.');
 });
 
-// Triggered for every message received from polyglot.
 poly.on('messageReceived', function(message) {
   // Only display messages other than config
   if (!message['config']) {
@@ -121,14 +114,11 @@ poly.on('messageReceived', function(message) {
   }
 });
 
-// Triggered for every message sent to polyglot.
 poly.on('messageSent', function(message) {
   logger.debug('Message Sent: %o', message);
 });
 
-// This is being triggered based on the short and long poll parameters in the UI
 async function doPoll(longPoll) {
-  // Prevents polling logic reentry if an existing poll is underway
   try {
     await lock.acquire('poll', function() {
       logger.info('%s', longPoll ? 'Long poll' : 'Short poll');
@@ -138,7 +128,6 @@ async function doPoll(longPoll) {
   }
 }
 
-// Creates the controller node
 async function autoCreateController() {
   try {
     await poly.addNode(
@@ -148,7 +137,6 @@ async function autoCreateController() {
     logger.error('Error creating controller node');
   }
 
-  // Add a notice in the UI for 5 seconds
   poly.addNoticeTemp('newController', 'Controller node initialized', 5);
 }
 
@@ -175,8 +163,6 @@ async function CreateLutronControllers() {
   }
 }
 
-// Call Async function from a non-asynch function without waiting for result,
-// and log the error if it fails
 function callAsync(promise) {
   (async function() {
     try {
