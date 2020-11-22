@@ -26,7 +26,7 @@ To get started with an on-premise installation:
 
 ### In-Development Components
 - Shades
-    - Pending demand
+    - Pending testing/information
 
 ## Notes
 
