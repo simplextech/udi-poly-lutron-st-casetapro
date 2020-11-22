@@ -1,5 +1,5 @@
 {
-  "name": "Simplex-CasetaPro",
+  "name": "CasetaPro",
   "docs": "https://github.com/simplextech/udi-poly-lutron-casetapro",
   "type": "node",
   "executable": "nodeserver.js",
