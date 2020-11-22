@@ -1,19 +1,19 @@
 {
-  "name": "poly-template-nodejs",
-  "description": "Polyglot NodeServer template for node.js",
-  "version": "1.1.2",
-  "author": "Benoit Mercier",
+  "name": "udi-poly-lutron-casetapro",
+  "description": "Polyglot NodeServer for Lutron CasetaPro",
+  "version": "0.1.1",
+  "author": "Simplex Technology",
   "license": "MIT",
   "main": "nodeserver.js",
   "scripts": {
     "linter": "eslint --ignore-path .gitignore ."
   },
-  "repository": "UniversalDevicesInc/poly-template-nodejs",
+  "repository": "simplextech/udi-poly-lutron-casetapro",
   "dependencies": {
     "async-lock": "^1.1.4",
     "markdown": "^0.5.0",
-    "polyinterface": "^1.2.0",
-    "pgc_interface": "^1.0.11"
+    "pgc_interface": "^1.0.11",
+    "polyinterface": "^1.2.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
