@@ -31,3 +31,9 @@ If device type is not setup correctly the device will be created wrong or not at
 
 #### Shades
 - Depends on requests
+
+### Scenes / Phantom Buttons
+- Caseta Pro provides access to Scenes via the Phantom Button methodology of RadioRa 2.  The phantom
+button control is directly available from the main repeater/bridge node.  Scenes must be referenced by the
+phantom button number and can be retrieved from the Integration Report.
+- If there is demand Scenes may be converted into node elements within the Admin Console.
