@@ -1,2 +1,2 @@
-#!/usr/bin/evn bash
+#!/usr/bin/env bash
 npm install

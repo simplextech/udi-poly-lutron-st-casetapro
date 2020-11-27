@@ -1,10 +1,10 @@
 'use strict';
 
-const CasetaPro = require('../lib/casetapro');
-let lutronEvents = require('../lib/lutronEvents.js');
-let util = require('../lib/utils.js');
+const LutronLIP = require('../lib/lutronLIP');
+let lutronEvents = require('../lib/lutronEvents');
+let util = require('../lib/utils');
 
-let casetapro = new CasetaPro();
+let lip = new LutronLIP();
 let lutronEmitter = lutronEvents.lutronEmitter;
 let reconnect = 300000;
 let listenerActive = false;
@@ -14,14 +14,22 @@ const nodeDefId = 'MAINREPEATER';
 
 module.exports = function(Polyglot) {
   const logger = Polyglot.logger;
-  const MaestroDimmerNode = require('./CasetaDimmerNode.js')(Polyglot);
-  const MaestroSwitchNode = require('./CasetaSwitchNode.js')(Polyglot);
-  const MaestroFanControlNode = require('./CasetaFanControlNode.js')(Polyglot);
+  const MaestroDimmerNode = require('./MaestroDimmerNode.js')(Polyglot);
+  const MaestroSwitchNode = require('./MaestroSwitchNode.js')(Polyglot);
+  const MaestroFanControlNode = require('./MaestroFanControlNode.js')(Polyglot);
+  const OccupancyNode = require('./OccupancyNode.js')(Polyglot);
+  const RoomStatusNode = require('./RoomStatusNode.js')(Polyglot);
   const Pico2BNode = require('./Pico2BNode.js')(Polyglot);
   const Pico2BRLNode = require('./Pico2BRLNode.js')(Polyglot);
   const Pico3BRLNode = require('./Pico3BRLNode.js')(Polyglot);
   const Pico4BNode = require('./Pico4BNode.js')(Polyglot);
-  
+  const VCRXNode = require('./VCRXNode.js')(Polyglot);
+  const T5RLNode = require('./T5RLNode.js')(Polyglot);
+  const T10RLNode = require('./T10RLNode.js')(Polyglot);
+  const T15RLNode = require('./T15RLNode.js')(Polyglot);
+  const SivoiaShadeNode = require('./SivoiaShade.js')(Polyglot);
+
+
   class MainRepeaterNode extends Polyglot.Node {
     constructor(polyInterface, primary, address, name) {
       super(nodeDefId, polyInterface, primary, address, name);
@@ -50,7 +58,7 @@ module.exports = function(Polyglot) {
 
         if (config.ipAddress) {
           if (listenerActive) {
-            logger.info('CasetaPro Listener Alive');
+            logger.info('Lutron LIP Listener Alive');
           } else {
             this.listenerSetup();
           }
@@ -82,7 +90,7 @@ module.exports = function(Polyglot) {
         logger.info('Password: ' + _password);
   
         try {
-          casetapro.connect(_host, 'lutron', 'integration');
+          lip.connect(_host, _username, _password);
           this.getDevices();
           repeaterConnected = true;
         } catch (err) {
@@ -142,7 +150,7 @@ module.exports = function(Polyglot) {
             if (result) {
               logger.info('Add node worked: %s', result);
               await util.sleep(2000);
-              casetapro.queryGroupState(_lutronId)
+              lip.queryGroupState(_lutronId)
             }
           } catch (err) {
             logger.errorStack(err, 'Add node failed:');
@@ -215,7 +223,7 @@ module.exports = function(Polyglot) {
               if (result) {
                 logger.info('Add node worked: %s', result);
                 await util.sleep(2000);
-                casetapro.queryOutputState(_lutronId);
+                lip.queryOutputState(_lutronId);
               }
             } catch (err) {
               logger.errorStack(err, 'Add node failed:');
@@ -230,7 +238,7 @@ module.exports = function(Polyglot) {
             if (result) {
               logger.info('Add node worked: %s', result);
               await util.sleep(2000);
-              casetapro.queryOutputState(_lutronId);
+              lip.queryOutputState(_lutronId);
             }
           } catch (err) {
             logger.errorStack(err, 'Add node failed:');
@@ -245,7 +253,7 @@ module.exports = function(Polyglot) {
             if (result) {
               logger.info('Add node worked: %s', result);
               await util.sleep(2000);
-              casetapro.queryOutputState(_lutronId);
+              lip.queryOutputState(_lutronId);
             }
           } catch (err) {
             logger.errorStack(err, 'Add node failed:');
@@ -303,6 +311,19 @@ module.exports = function(Polyglot) {
             logger.errorStack(err, 'Add node failed:');
           }
           break;
+        case 30: // Sivoia QS Wireless Shades
+          try {
+            const result = await this.polyInterface.addNode(
+              new SivoiaShadeNode(this.polyInterface, _address,
+                _address, _devName)
+            );
+            if (result) {
+              logger.info('Add node worked: %s', result);
+            }
+          } catch (err) {
+            logger.errorStack(err, 'Add node failed:');
+          }
+          break;
         default:
           logger.info('No Device Type Defined');
           break;
@@ -311,7 +332,7 @@ module.exports = function(Polyglot) {
 
     onPhantom(button) {
       this.setDriver('GV0', button.value);
-      casetapro.pressButton('1', button.value);
+      lip.pressButton('1', button.value);
     }
 
     // Here you could discover devices from a 3rd party API
@@ -330,35 +351,35 @@ module.exports = function(Polyglot) {
     }
 
     listenerSetup() {
-      casetapro.on('messageReceived', function(data) {
+      lip.on('messageReceived', function(data) {
         logger.info('LUTRON ' + data);
       }.bind(this));
 
-      casetapro.on('loggedIn', function() {
+      lip.on('loggedIn', function() {
         logger.info('Connected to Lutron');
       }.bind(this));
 
-      casetapro.on('sent', function(data) {
+      lip.on('sent', function(data) {
         logger.info('Message Sent' + data);
       }.bind(this));
 
-      casetapro.on('debug', function(data) {
+      lip.on('debug', function(data) {
         logger.info('Debug: ' + data);
       }.bind(this));
 
-      casetapro.on('info', function(data) {
+      lip.on('info', function(data) {
         logger.info('Info: ' + data);
       }.bind(this));
 
-      casetapro.on('warn', function(data) {
+      lip.on('warn', function(data) {
         logger.info('Warn: ' + data);
       }.bind(this));
 
-      casetapro.on('error', function(data) {
+      lip.on('error', function(data) {
         logger.info('Error: ' + data);
       }.bind(this));
 
-      casetapro.on('close', function(data) {
+      lip.on('close', function(data) {
         logger.info(data);
         setTimeout(function() {
           logger.info('Restarting NodeServer...');
@@ -370,7 +391,7 @@ module.exports = function(Polyglot) {
         }.bind(this), reconnect);
       }.bind(this));
 
-      casetapro.on('on', function(id) {
+      lip.on('on', function(id) {
         let nodeAddr = this.address.split('_')[0] + '_' + id;
         let node = this.polyInterface.getNode(nodeAddr);
         if (node) {
@@ -379,7 +400,7 @@ module.exports = function(Polyglot) {
         }
       }.bind(this));
 
-      casetapro.on('off', function(id) {
+      lip.on('off', function(id) {
         let nodeAddr = this.address.split('_')[0] + '_' + id;
         let node = this.polyInterface.getNode(nodeAddr);
         if (node) {
@@ -389,7 +410,7 @@ module.exports = function(Polyglot) {
 
       }.bind(this));
 
-      casetapro.on('level', function(id, level) {
+      lip.on('level', function(id, level) {
         logger.info('ID: ' + id + ' Level: ' + level);
         let nodeAddr = this.address.split('_')[0] + '_' + id;
         // logger.info('Address: ' + nodeAddr);
@@ -432,7 +453,7 @@ module.exports = function(Polyglot) {
         }
       }.bind(this));
 
-      casetapro.on('buttonPress', function(id, buttonId) {
+      lip.on('buttonPress', function(id, buttonId) {
         logger.info(id + ': Button ' + buttonId + ' Pressed');
         let nodeAddr = this.address.split('_')[0] + '_' + id;
         // logger.info('Address: ' + nodeAddr);
@@ -487,7 +508,7 @@ module.exports = function(Polyglot) {
         
       }.bind(this));
 
-      casetapro.on('buttonReleased', function(id, buttonId) {
+      lip.on('buttonReleased', function(id, buttonId) {
         logger.info(id + ': Button Released');
         let nodeAddr = this.address.split('_')[0] + '_' + id;
         // logger.info('Address: ' + nodeAddr);
@@ -542,11 +563,11 @@ module.exports = function(Polyglot) {
         
       }.bind(this));
 
-      casetapro.on('buttonHold', function(data) {
+      lip.on('buttonHold', function(data) {
         logger.info(data);
       }.bind(this));
 
-      casetapro.on('keypadbuttonLEDOn', function(deviceId, buttonId) {
+      lip.on('keypadbuttonLEDOn', function(deviceId, buttonId) {
         logger.info(deviceId + ': KeyPad Button: ' + buttonId + ' LED On');
         let nodeAddr = null;
         let node = null;
@@ -620,7 +641,7 @@ module.exports = function(Polyglot) {
         }
       }.bind(this));
 
-      casetapro.on('keypadbuttonLEDOff', function(deviceId, buttonId) {
+      lip.on('keypadbuttonLEDOff', function(deviceId, buttonId) {
         logger.info(deviceId + ': KeyPad Button: ' + buttonId +' LED Off');
         let nodeAddr = null;
         let node = null;
@@ -694,7 +715,7 @@ module.exports = function(Polyglot) {
         }
       }.bind(this));
 
-      casetapro.on('groupOccupied', function(groupId) {
+      lip.on('groupOccupied', function(groupId) {
         logger.info('Group Id: ' + groupId + ' Occupied')
         // let nodeAddr = this.address + '_' + groupId;
         let nodeAddr = this.address.split('_')[0] + '_' + groupId;
@@ -704,7 +725,7 @@ module.exports = function(Polyglot) {
         }
       }.bind(this));
 
-      casetapro.on('groupUnoccupied', function(groupId) {
+      lip.on('groupUnoccupied', function(groupId) {
         logger.info('Group Id: ' + groupId + ' Unoccupied')
         // let nodeAddr = this.address + '_' + groupId;
         let nodeAddr = this.address.split('_')[0] + '_' + groupId;
@@ -714,7 +735,7 @@ module.exports = function(Polyglot) {
         }
       }.bind(this));
 
-      casetapro.on('groupUnknown', function(groupId) {
+      lip.on('groupUnknown', function(groupId) {
         logger.info('Group Id: ' + groupId + ' Unknown')
         // let nodeAddr = this.address + '_' + groupId;
         let nodeAddr = this.address.split('_')[0] + '_' + groupId;
@@ -726,46 +747,46 @@ module.exports = function(Polyglot) {
 
       // Receive Events from ISY Admin Console
       lutronEmitter.on('query', function(id){
-        casetapro.queryOutputState(id);
+        lip.queryOutputState(id);
       });
 
       lutronEmitter.on('on', function(id) {
         // logger.info('Node On Message: ' + id);
-        casetapro.setSwitch(id, 100);
+        lip.setSwitch(id, 100);
       });
 
       lutronEmitter.on('off', function(id) {
         // logger.info('Node Off Message: ' + id);
-        casetapro.setSwitch(id, 0);
+        lip.setSwitch(id, 0);
       });
 
       lutronEmitter.on('level', function(id, level, fade, delay) {
         // logger.info('Node Level Message: ' + id + ' Level:' + level);
-        casetapro.setDimmer(id, level, fade, delay);
+        lip.setDimmer(id, level, fade, delay);
       });
 
       lutronEmitter.on('fdup', function(id) {
-        casetapro.startRaising(id);
+        lip.startRaising(id);
       });
 
       lutronEmitter.on('fddown', function(id) {
-        casetapro.startLowering(id);
+        lip.startLowering(id);
       });
 
       lutronEmitter.on('fdstop', function(id) {
-        casetapro.stopRaiseLower(id);
+        lip.stopRaiseLower(id);
       });
 
       lutronEmitter.on('buttonPress', function(deviceId, buttonId) {
-        casetapro.pressButton(deviceId, buttonId);
+        lip.pressButton(deviceId, buttonId);
       })
 
       lutronEmitter.on('queryDeviceButton', function(deviceId, buttonId) {
-        casetapro.queryDeviceButtonState(deviceId, buttonId);
+        lip.queryDeviceButtonState(deviceId, buttonId);
       })
 
       lutronEmitter.on('queryGroupState', function(deviceId) {
-        casetapro.queryGroupState(deviceId);
+        lip.queryGroupState(deviceId);
       })
       
       listenerActive = true;

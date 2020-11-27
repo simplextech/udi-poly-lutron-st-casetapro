@@ -5,26 +5,37 @@ CMD-CONTROLLER-UPDATE_PROFILE-NAME = Update node server profile
 CMD-CONTROLLER-REMOVE_NOTICES-NAME = Remove node server notices
 CMD-CONTROLLER-QUERY-NAME = Query
 
-ND-MAINREPEATER-NAME = Caseta Pro Bridge
+ND-MAINREPEATER-NAME = Main Repeater
 ND-MAINREPEATER-ICON = GenericCtl
 ST-MAINREPEATER-ST-NAME = Status
 ST-MAINREPEATER-GV0-NAME = Phantom Button Pressed
 CMD-MAINREPEATER-PBUTTON-NAME = Press Phantom button
 
-ND-CASETA_DIMMER-NAME = Caseta Dimmer
-ND-CASETA_DIMMER-ICON = Lamp
+ND-SIVOIA_SHADE-NAME = Sivoia QS Wireless Shade
+ND-SIVOIA_SHADE-ICON = Output
+ST-SHADE-ST-NAME = Status
+ST-SHADE-GV0-NAME = Shade Status
+CMD-SHADE-DON-NAME = Open
+CMD-SHADE-DOF-NAME = Close
+CMD-SHADE-FDUP-NAME = Start Raising
+CMD-SHADE-FDDOWN-NAME = Start Lowering
+CMD-SHADE-FDSTOP-NAME = Stop Raise/Lower
+CMD-SHADE-QUERY-NAME = Query
+
+ND-MAESTRO_DIMMER-NAME = Maestro Dimmer
+ND-MAESTRO_DIMMER-ICON = Lamp
 ST-MD-ST-NAME = Status
 ST-MD-RR-NAME = Ramp Rate
 CMD-MD-DON-NAME = On
 CMD-MD-DOF-NAME = Off
 CMD-MD-QUERY-NAME = Query
 
-ND-CASETA_SWITCH-NAME = Caseta Switch
-ND-CASETA_SWITCH-ICON = Switch
+ND-MAESTRO_SWITCH-NAME = Maestro Switch
+ND-MAESTRO_SWITCH-ICON = Switch
 ST-MS-ST-NAME = Status
 
-ND-CASETA_FAN-NAME = Caseta Fan Controller
-ND-CASETA_FAN-ICON = GenericCtl
+ND-MAESTRO_FAN-NAME = Maestro Fan Controller
+ND-MAESTRO_FAN-ICON = GenericCtl
 ST-MFC-ST-NAME = Status
 ST-MFC-CLIFRS-NAME = Speed
 CMD-MFC-GV1-NAME = Low
@@ -80,6 +91,42 @@ ND-OCCUPANCY-NAME = Occupancy Sensor
 ND-OCCUPANCY-ICON = MotionSensor
 ST-OCC-ST-NAME = Status
 
+ND-VCRX-NAME = Visor Control Receiver
+ND-VCRX-ICON = Output
+ST-VCRX-ST-NAME = Status
+ST-VCRX-GV10-NAME = Full / Security
+ST-VCRX-GV11-NAME = Security Flash
+ST-VCRX-GV12-NAME = Input 1
+ST-VCRX-GV13-NAME = Input 2
+
+ND-VCRXBUTTON-NAME = Visor Control Receiver
+ND-VCRXBUTTON-ICON = Output
+ST-VCRXBTN-ST-NAME = Status
+
+ND-T5RL-NAME = Tabletop 5 Button
+ND-T5RL-ICON = Output
+ST-T5RL-ST-NAME = Status
+
+ND-T5RLBUTTON-NAME = Tabletop 5 Button
+ND-T5RLBUTTON-ICON = Output
+ST-T5RLBTN-ST-NAME = Status
+
+ND-T10RL-NAME = Tabletop 10 Button
+ND-T10RL-ICON = Output
+ST-T10RL-ST-NAME = Status
+
+ND-T10RLBUTTON-NAME = Tabletop 10 Button
+ND-T10RLBUTTON-ICON = Output
+ST-T10RLBTN-ST-NAME = Status
+
+ND-T15RL-NAME = Tabletop 15 Button
+ND-T15RL-ICON = Output
+ST-T15RL-ST-NAME = Status
+
+ND-T15RLBUTTON-NAME = Tabletop 15 Button
+ND-T15RLBUTTON-ICON = Output
+ST-T15RLBTN-ST-NAME = Status
+
 ND-ROOMSTATUS-NAME = Room Occupancy
 ND-ROOMSTATUS-ICON = MotionSensor
 ST-ROOMSTATUS-ST-NAME = Status
@@ -106,3 +153,4 @@ DEVTYPE-13 = Visor Control Receiver
 DEVTYPE-14 = Tabletop 5 Button RL
 DEVTYPE-15 = Tabletop 10 Button RL
 DEVTYPE-16 = Tabletop 15 Button RL
+DEVTYPE-30 = Sivoia QS Wireless Shades

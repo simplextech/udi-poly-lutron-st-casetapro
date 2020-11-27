@@ -1,19 +1,19 @@
 {
-  "name": "udi-poly-lutron-casetapro",
-  "description": "Polyglot NodeServer for Lutron CasetaPro",
-  "version": "0.1.1",
+  "name": "udi-poly-lutron-st-casetapro",
+  "description": "Polyglot NodeServer for Lutron Integration Protocol for Caseta Pro",
+  "version": "0.1.4",
   "author": "Simplex Technology",
   "license": "MIT",
   "main": "nodeserver.js",
   "scripts": {
     "linter": "eslint --ignore-path .gitignore ."
   },
-  "repository": "simplextech/udi-poly-lutron-casetapro",
+  "repository": "simplextech/udi-poly-lutron-st-casetapro",
   "dependencies": {
     "async-lock": "^1.1.4",
     "markdown": "^0.5.0",
-    "pgc_interface": "^1.0.11",
-    "polyinterface": "^1.2.0"
+    "polyinterface": "^1.2.0",
+    "pgc_interface": "^1.0.11"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
