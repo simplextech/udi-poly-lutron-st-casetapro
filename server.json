@@ -2,7 +2,7 @@
   "name": "ST-CasetaPro",
   "docs": "https://github.com/simplextech/udi-poly-lutron-st-casetapro",
   "type": "node",
-  "executable": "nodeserver.js",
+  "executable": "st-casetapro.js",
   "install": "install.sh",
   "description": "Polyglot integration of Lutron Integration Protocol for Caseta Pro",
   "notice": "",
@@ -13,7 +13,7 @@
     {
       "title": "Polyglot integration of Lutron Integration Protocol for Caseta Pro",
       "author": "Simplex Technology",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "date": "September 25th, 2020",
       "source": "https://github.com/simplextech/udi-poly-lutron-st-casetapro",
       "license": "https://github.com/simplextech/udi-poly-lutron-st-casetapro/blob/main/LICENSE"
