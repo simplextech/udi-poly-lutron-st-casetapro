@@ -4,7 +4,7 @@
   "version": "0.1.4",
   "author": "Simplex Technology",
   "license": "MIT",
-  "main": "nodeserver.js",
+  "main": "st-casetapro.js",
   "scripts": {
     "linter": "eslint --ignore-path .gitignore ."
   },
