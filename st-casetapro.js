@@ -33,10 +33,10 @@ const SivoiaShadeNode = require('./Nodes/SivoiaShade.js')(Polyglot);
 
 
 const typedParams = [
-  {name: 'name', title: 'Repeater Name', type: 'STRING',
+  {name: 'name', title: 'Repeater Name', defaultValue: 'CasetaPro', type: 'STRING',
     desc: 'Name as it will appear in ISY'},
-  {name: 'ipAddress', title: 'Repeater IP Address', type: 'STRING',
-    desc: ''},
+  {name: 'ipAddress', title: 'Caseta Bridge IP Address', type: 'STRING',
+    desc: 'IP Address to the Caseta Pro bridge'},
   {name: 'username', title: 'Username', defaultValue: 'lutron', type: 'STRING',
     desc: ''},
   {name: 'password', title: 'Password', defaultValue: 'integration', type: 'STRING',
