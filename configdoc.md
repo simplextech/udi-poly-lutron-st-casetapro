@@ -2,6 +2,9 @@
 - Multiple Control systems connecting to a main repeater or bridge using the same username/password is not supported by Lutron and will cause the main repeater/bridge to lock down the connection requiring a time-out period of 15 minutes or power cycle!
 
 ## Caseta Pro
+### Configuration
+- Repeater IP Address - This is the IP Address for the bridge
+- Repeater Name - The name of the bridge that will be displayed in Admin Console
 - Default username and password are lutron/integration and are the defaults for the NodeServer.
 - Telnet Support must be enabled from the mobile app
   - Settings -> Advanced -> Integration -> Telnet Suport
