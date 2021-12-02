@@ -38,12 +38,14 @@ module.exports = function(Polyglot) {
       // setDrivers accepts string or number (message.value is a string)
       logger.info('DON (%s)', this.address);
       this.setDriver('ST', message.value ? message.value : '100');
+      this.reportCmd('DON', message.value, 78);
       lutronEmitter.emit('on', this.lutronId);
     }
 
     onDOF() {
       logger.info('DOF (%s)', this.address);
       this.setDriver('ST', '0');
+      this.reportCmd('DOF', 0, 78);
       lutronEmitter.emit('off', this.lutronId);
     }
 

@@ -51,6 +51,7 @@ module.exports = function(Polyglot) {
     onDON(message) {
       // setDrivers accepts string or number (message.value is a string)
       this.setDriver('ST', message.value ? message.value : '100');
+      this.reportCmd('DON', message.value, '51');
 
       let rampRateST = this.getDriver('RR');
       let delayST = this.getDriver('DELAY');
@@ -68,6 +69,7 @@ module.exports = function(Polyglot) {
     onDOF() {
       // logger.info('DOF (%s)', this.address);
       this.setDriver('ST', '0');
+      this.reportCmd('DOF', 0, 51);
       lutronEmitter.emit('off', this.lutronId);
     }
 
